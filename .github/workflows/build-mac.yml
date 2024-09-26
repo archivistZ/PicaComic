@@ -1,0 +1,29 @@
+name: Build macOS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.10.0'
+        channel: 'stable'
+    - run: flutter pub get
+    - run: flutter test
+    
+    - name: Build macOS
+      run: flutter build macos
+    
+    - name: Upload macOS Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: macos-release
+        path: build/macos/Build/Products/Release/*.app
