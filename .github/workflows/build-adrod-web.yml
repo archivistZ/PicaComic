@@ -19,10 +19,6 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Set JAVA_HOME
-      run: echo "JAVA_HOME: $(echo $JAVA_HOME)"
-      shell: bash
-
     - name: Verify Java Version
       run: java -version
 
